@@ -351,7 +351,7 @@ class TabDialog(QDialog):           ##########主界面
         reviewEdit.setReadOnly(True)
         self.wid1.show()
     def openaurl(self):
-        QDesktopServices.openUrl(QtCore.QUrl('https://github.com/trz0332'))
+        QDesktopServices.openUrl(QtCore.QUrl('https://github.com/trz0332/bmsreport'))
     def openhelp(self):          ##帮助菜单的弹窗内容
         #self.hide()
         if path.exists("help.txt"):    #判断help.txt是否存在，如果存在获取帮助文本里面的内容，填充到文本编辑控件显示
