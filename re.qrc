@@ -1,0 +1,6 @@
+<!DOCTYPE RCC><RCC version="1.0"> 
+ <qresource prefix="/img">
+    <file alias="save1.ico">C:\Users\admin\Seafile\save1.ico</file>
+    <file alias="title.jpg">C:\Users\admin\Seafile\title.jpg</file>
+  </qresource>
+</RCC>
