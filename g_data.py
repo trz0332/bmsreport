@@ -1,7 +1,7 @@
 
 class bl():
     def __init__(self):
-        self.vison=1.2
+        self.vison="1.2.1"
         self.host,self.port,self.usr,self.passwd,self.db='','','','',''
         self.text_help="配置文件帮助:\n\
 第一次打开该程序会判断配置文件是否存在,如果不存在则使用初始配置创建该INI配置文件\n\
@@ -50,6 +50,8 @@ TEMPLATE|A{}+B{}   如果是这个格式,会把TEMPLATE|后面的内容直接填
 作者:谭润芝\n\
 电话:13267153721\n\
 v{}\n\
+添加了一个按钮，链接到github主页\n\
+v1.2\n\
 解决bug:表格中日期处理的错误\n\
 新增功能:检查最新版本功能\n\
 v1.0\n\
