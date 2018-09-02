@@ -1,1 +1,1 @@
-pyinstaller -w -D --add-data="D:\Seafile\snmp\共济自定义报表程序\bmsreport\qt.conf;."    -i d:\\ico\\save.ico --clean ui.py
+pyinstaller -w -D --add-data=".\qt.conf;."    -i d:\\ico\\save.ico --clean ui.py
