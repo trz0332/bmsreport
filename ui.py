@@ -243,10 +243,10 @@ class TabDialog(QDialog):           ##########主界面
         self.setWindowIcon(self.icon_title)
         #########################################
         qm=QMainWindow()
+        self.toolbar = qm.addToolBar("工具栏")
         exitAct = QAction(self.icon_save,"保存配置",qm)
         exitAct.setShortcut("Ctrl+S")
         exitAct.triggered.connect(self.saveconfig)
-        self.toolbar = qm.addToolBar("save")
         exitAct1 = QAction(self.icon_help,"帮助",qm)
         exitAct1.setShortcut("Ctrl+H")
         exitAct1.triggered.connect(self.openhelp)
