@@ -1,7 +1,7 @@
 
 class bl():
     def __init__(self):
-        self.vison="1.3.0"
+        self.vison="1.3.2"
         self.host,self.port,self.usr,self.passwd,self.db='','','','',''
         self.text_help="配置文件帮助:\n\
 第一次打开该程序会判断配置文件是否存在,如果不存在则使用初始配置创建该INI配置文件\n\
