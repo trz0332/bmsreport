@@ -3,15 +3,15 @@
 配置文件包含两部分:
 [server]
 host = xxx.xxx.xxx.xxx   ;数据库IP
-db = MJSQL3.0   ;数据库名中联默认MJSQL3.0   共济默认historyver1
-passwd = ABCabc123  ;数据库密码.默认共济的是xbrother中联的需要后台设置
-port = 14333  ;数据库端口默认共济的mysql是3307,中联用的sqlserver是1433 
-user = sa  ;数据库用户名默认共济的是gj,中联的需要进sqlserver后台设置
+db = MJSQL3.0   ;数据库名中联默认MJSQL3.0   共济默认historyver1 栅格默认sgdatabase
+passwd = ABCabc123  ;数据库密码.默认共济的是xbrother栅格的是mysql中联的需要后台设置
+port = 14333  ;数据库端口默认共济的mysql是3307,栅格的是3306，中联用的sqlserver是1433 
+user = sa  ;数据库用户名默认共济的是gj,栅格的是mysql，中联的需要进sqlserver后台设置
 
 [sheet_day]
 sjl = A    ;时间所在列
 gzh = 6    ;规则所在行
-cj = 1    ;0选择共济  1选择中联
+cj = 1    ;0选择共济  1选择中联  2选择栅格
 mode =0      ；0选择按时间  1选择最后填充
 filename = E:/Seafile/snmp/共济自定义报表程序/ss.xlsx  ;报表文件路径名字
 
@@ -38,8 +38,5 @@ JAVG这个函数会把数据库里面查询到的数据的平均值返回
 JSUM这个函数会把数据库里面查询到的数据的所有数相加返回
 TEMPLATE|标识:
 TEMPLATE|A{}+B{}   如果是这个格式,会把TEMPLATE|后面的内容直接填入表格{}的值将会被行号替代
-
-
-github上面有excel文件，里面有比较完整的配置。可以下载下来参考
 
                   

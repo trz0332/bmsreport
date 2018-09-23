@@ -1,9 +1,9 @@
 import time
+import ui_log as log
 def cl(reslist):
     resdatelist=[]
     if len(reslist)!=0 and reslist !='err':
         for i in reslist:
-            #print(i)
             if i[0]:resdatelist.append([time.mktime(time.strptime(str(i[1]),"%Y-%m-%d %H:%M:%S")),float(i[0])])
         resdatelist.sort()
         resdatelist=[i[1] for i in resdatelist]
@@ -12,28 +12,42 @@ def cl(reslist):
 
 def JLJ(reslist):
     res=cl(reslist)
-    if len(res)==0:return 0
+    if len(res)==0:data=0
     else:
-        return float((res[-1]))-float(res[0])
+        data=float((res[-1]))-float(res[0])
+    log.logger2.info(data)
+    return(data)
 def JAVG(reslist):
     res=cl(reslist)
-    return sum(res)/len(res)
+    data= sum(res)/len(res)
+    log.logger2.info(data)
+    return(data)
 def JSUM(reslist):
     res=cl(reslist)
-    return sum(res)
+    data= sum(res)
+    log.logger2.info(data)
+    return(data)
 def JMAX(reslist):
     res=cl(reslist)
-    return max(res)
+    data= max(res)
+    log.logger2.info(data)
+    return(data)
 def JMIN(reslist):
     res=cl(reslist)
-    return min(res)
+    data= min(res)
+    log.logger2.info(data)
+    return(data)
 def JNEW(reslist):
     res=cl(reslist)
-    return res[-1]
+    data= res[-1]
+    log.logger2.info(data)
+    return(data)
 def JOLD(reslist):
     res=cl(reslist)
-    return res[0]
+    data= res[0]
+    log.logger2.info(data)
+    return(data)
 
 if __name__=='__main__':
     a=[[4,'2018-06-05 12:05:00'],[100,'2018-06-05 12:09:00'],[3,'2018-06-05 12:03:00']]
-    print(avg(a))
+    print(JAVG(a))

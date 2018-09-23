@@ -9,8 +9,13 @@ def sqldate(ms,date_start,date_end,tag_no):
     stdate=time.strftime("%Y-%m-%d %H:%M:%S ", time.localtime(date_start))  #处理起始时间
     eddate=time.strftime("%Y-%m-%d %H:%M:%S ", time.localtime(date_end))  #处理结束时间
     sql=''
-    sql1="SELECT tag_value ,save_time from data{} where tag_no like \'{}\'"
-    sql2=" and save_time >= '{}' and save_time < '{}'".format(stdate,eddate)
+    sql1="SELECT FLOATVALUE ,RECORDTIME from historysignal_{} where EQUIPMENTID = \'{}\' and SIGNALID = \'{}\'"
+
+    sql2= " and RECORDTIME >= ( SELECT RECORDTIME FROM historysignal_{} WHERE \
+     EQUIPMENTID = '{}' and SIGNALID = '{}' and RECORDTIME < '{} ' \
+     ORDER BY RECORDTIME DESC LIMIT 1) and RECORDTIME < \
+      (SELECT RECORDTIME FROM historysignal_{} WHERE EQUIPMENTID = '{}' and SIGNALID = '{}' \
+      and RECORDTIME > '{} ' LIMIT 1 )"
     sy=int(stdate.split(' ')[0].split('-')[0])
     sm=int(stdate.split(' ')[0].split('-')[1])
     ey=int(eddate.split(' ')[0].split('-')[0])
@@ -28,10 +33,13 @@ def sqldate(ms,date_start,date_end,tag_no):
         sm=1
         sy+=1
     for index,i in enumerate(tablesheet):
-        if index==len(tablesheet)-1:sql+=sql1.format(i,tag_no)+sql2
-        else:sql+=sql1.format(i,tag_no)+sql2+' union '
+        if index==len(tablesheet)-1:
+            sql=sql+sql1.format(i,tag_no.split('|')[0],tag_no.split('|')[1])+\
+            sql2.format(i,tag_no.split('|')[0],tag_no.split('|')[1],stdate,i,tag_no.split('|')[0],tag_no.split('|')[1],eddate)
+        else:
+            sql+=sql1.format(i,tag_no.split('|')[0],tag_no.split('|')[1])+\
+            sql2.format(i,tag_no.split('|')[0],tag_no.split('|')[1],stdate,i,tag_no.split('|')[0],tag_no.split('|')[1],eddate)+' union '
     log.logger2.debug(sql)
-    
     try:
         res=ms.ExecQuery(sql)
         log.logger2.info(res)
@@ -46,3 +54,4 @@ def sqldate(ms,date_start,date_end,tag_no):
             return 'err'
     log.logger2.debug(reslist)
 
+    #return js.js(reslist,formula)
