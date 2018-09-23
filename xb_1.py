@@ -44,5 +44,5 @@ def sqldate(ms,date_start,date_end,tag_no):
         else :
             log.logger2.info('sql没有查询到数据')
             return 'err'
-    log.logger2.debug(reslist)
+
 
