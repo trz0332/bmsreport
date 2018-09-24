@@ -2,6 +2,7 @@ from PyQt5.QtCore import QThread,pyqtSignal
 from openpyxl import load_workbook
 import time
 import ui_log as log
+from js2 import *
 #两个函数，用来excel中列的转换字母转数字数字转字母，
 #代替openpyxl中的默认函数，默认的用了numpy库，这个库效率高，但是太大了
 def get_column_letter(n):
@@ -48,7 +49,7 @@ class WorkThread(QThread):
         self.mode=mode
     def init1(self,host,port,user,pwd,db):
         self.host=host
-        self.port=user
+        self.port=port
         self.user=user
         self.pwd=pwd
         self.db=db
@@ -151,7 +152,8 @@ class WorkThread(QThread):
                             #print(((xled)/xdate)*100)
                     else:
                         xled+=xdate/((self.enddate-self.stdate)/(60*60*24))
-                        self.sinOut.emit(((xled)/xdate)*100)
+                        if ((xled)/xdate)*100<100:
+                            self.sinOut.emit(((xled)/xdate)*100)
             try:
                 wb.save(self.filename)
             except:self.sinOut.emit(1000)

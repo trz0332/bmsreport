@@ -1,6 +1,6 @@
 from PyQt5.QtCore import QDateTime,QDate,QTime  ,QThread,pyqtSignal,QFileInfo,Qt
 from PyQt5.QtWidgets import (QWidget,QVBoxLayout,QGridLayout,QLabel,QLineEdit
-    ,QPushButton,QComboBox,QDateTimeEdit,QProgressBar,QMessageBox)
+    ,QPushButton,QComboBox,QDateTimeEdit,QProgressBar,QMessageBox,QFileDialog)
 import time
 from wt_ri import WorkThread
 
@@ -99,7 +99,7 @@ class ri(QWidget):    #日报table框组建
         elif num >=100 and num <101 :
             self.qtb1.setEnabled(True)
             self.pbar.setValue(num)
-            QMessageBox.information(self, "提示", "报表导出成功",QMessageBox.Yes)
+            QMessageBox.information(self, "提示", "报表导出成功1",QMessageBox.Yes)
 
     def work(self):
 

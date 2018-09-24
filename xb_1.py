@@ -35,7 +35,8 @@ def sqldate(ms,date_start,date_end,tag_no):
     try:
         res=ms.ExecQuery(sql)
         log.logger2.info(res)
-    except:
+    except Exception as e:
+        log.logger2.info(e)
         log.logger2.info('sql运行失败')
         return 'err'
     else:

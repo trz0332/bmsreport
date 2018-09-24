@@ -3,7 +3,6 @@ import requests
 from datetime import date
 import time
 from os import path
-from js2 import *
 from img import *
 #import base64
 from PyQt5.QtWidgets import (QTextEdit,QAction, qApp,QApplication,QMainWindow,QMessageBox,QDateTimeEdit,QComboBox,QFileDialog,QPushButton,QProgressBar,QGridLayout,QApplication, QCheckBox, QDialog,
@@ -199,7 +198,7 @@ class TabDialog(QDialog):           ##########主界面
                 self.updatlabel.setText("<html><head/><body><p><a href=\"{}\"><span style=\" text-decoration: underline; color:#ff0000;\">此版本有重大风险<br>不建议使用，必须升级</span></a></p></body></html>".format(s['url']))
     def initserver(self):   ##########从主界面获取的数据存入全局变量
         blc.host=self.le_host.text()
-        blc.port=self.le_port.text()
+        blc.port=int(self.le_port.text())
         blc.usr=self.le_usr.text()
         blc.passwd=self.le_passwd.text()
         blc.db=self.le_db.text()
