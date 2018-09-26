@@ -12,10 +12,10 @@ def sqldate(ms,date_start,date_end,tag_no):
     sql1="SELECT FLOATVALUE ,RECORDTIME from historysignal_{} where EQUIPMENTID = \'{}\' and SIGNALID = \'{}\'"
 
     sql2= " and RECORDTIME >= ( SELECT RECORDTIME FROM historysignal_{} WHERE \
-     EQUIPMENTID = '{}' and SIGNALID = '{}' and RECORDTIME < '{} ' \
-     ORDER BY RECORDTIME DESC LIMIT 1) and RECORDTIME < \
+     EQUIPMENTID = '{}' and SIGNALID = '{}' and RECORDTIME <= '{} ' \
+       ORDER BY RECORDTIME DESC LIMIT 1) and RECORDTIME <= \
       (SELECT RECORDTIME FROM historysignal_{} WHERE EQUIPMENTID = '{}' and SIGNALID = '{}' \
-      and RECORDTIME > '{} ' LIMIT 1 )"
+      and RECORDTIME <= '{} ' ORDER BY RECORDTIME DESC LIMIT 1 )"
     sy=int(stdate.split(' ')[0].split('-')[0])
     sm=int(stdate.split(' ')[0].split('-')[1])
     ey=int(eddate.split(' ')[0].split('-')[0])

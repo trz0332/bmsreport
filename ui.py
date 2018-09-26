@@ -5,7 +5,8 @@ import time
 from os import path
 from img import *
 #import base64
-from PyQt5.QtWidgets import (QTextEdit,QAction, qApp,QApplication,QMainWindow,QMessageBox,QDateTimeEdit,QComboBox,QFileDialog,QPushButton,QProgressBar,QGridLayout,QApplication, QCheckBox, QDialog,
+from PyQt5.QtWidgets import (QTextEdit,QAction, qApp,QApplication,QMainWindow,QMessageBox,QDateTimeEdit,QComboBox
+    ,QFileDialog,QPushButton,QProgressBar,QGridLayout,QApplication, QCheckBox, QDialog,
         QDialogButtonBox, QFrame, QGroupBox, QLabel, QLineEdit, QListWidget,
         QTabWidget, QVBoxLayout, QWidget)
 from PyQt5.QtCore import QCoreApplication,Qt ,QThread,pyqtSignal,QFileInfo
@@ -50,10 +51,11 @@ class TabDialog(QDialog):           ##########主界面
     def __init__(self, parent=None):
         super(TabDialog, self).__init__(parent)
         self.mustupdate=False
+        self.setWindowOpacity(0.9)  #设置透明
         self.creatico()
         self.creatui()
         self.creattab()
-        self.checkvision()   #运行检查升级函数
+        self.checkvision()   #运行检查升级函数QMainWindow
     def creatico(self):
         self.icon_title = QIcon()
         self.icon_title.addPixmap(QPixmap(":/img/title.ico"), QIcon.Normal, QIcon.Off)   #标题图表
@@ -64,7 +66,7 @@ class TabDialog(QDialog):           ##########主界面
         self.icon_aboat = QIcon()
         self.icon_aboat.addPixmap(QPixmap(":/img/about.ico"), QIcon.Normal, QIcon.Off)  #关于图表
         self.icon_github = QIcon()
-        self.icon_github.addPixmap(QPixmap(":/img/github.ico"), QIcon.Normal, QIcon.Off)  #关于图表
+        self.icon_github.addPixmap(QPixmap(":/img/github.ico"), QIcon.Normal, QIcon.Off)  #github图表
     def creatui(self):
         self.setWindowTitle('自定义报表程序')
         self.setGeometry(300,300,650,270) 
@@ -148,7 +150,7 @@ class TabDialog(QDialog):           ##########主界面
         self.tabWidget = QTabWidget()
         self.ts1=ri(config)
         self.ts2=zhou()
-        self.ts3=yue()
+        self.ts3=yue(config)
         self.tabWidget.addTab(self.ts1, "日报")
         self.mainLayout.addWidget(self.tabWidget)
         self.tabWidget.addTab(self.ts2, "周报")
@@ -191,8 +193,10 @@ class TabDialog(QDialog):           ##########主界面
             blc_vi=self.compare(blc.vison,s['vison'])
             if blc_vi == '=':
                 self.updatlabel.setText("<html><head/><body><p><span style=\" text-decoration: underline; color:#0000ff;\">已经是最新版本</span></a></p></body></html>")
-            elif blc_vi == '>' and not self.mustupdate:self.updatlabel.setText("<html><head/><body><p><span style=\" text-decoration: underline; color:#0000ff;\">你这个是内部版本吧<br>居然比发布版本要高</span></a></p></body></html>")
-            elif blc_vi == '<' and not self.mustupdate:self.updatlabel.setText("<html><head/><body><p><a href=\"{}\"><span style=\" text-decoration: underline; color:#ff0000;\">有最新版本,点此升级</span></a></p></body></html>".format(s['url']))
+            elif blc_vi == '>' and not self.mustupdate:
+                self.updatlabel.setText("<html><head/><body><p><span style=\" text-decoration: underline; color:#0000ff;\">你这个是内部版本吧<br>居然比发布版本要高</span></a></p></body></html>")
+            elif blc_vi == '<' and not self.mustupdate:
+                self.updatlabel.setText("<html><head/><body><p><a href=\"{}\"><span style=\" text-decoration: underline; color:#ff0000;\">有最新版本,点此升级</span></a></p></body></html>".format(s['url']))
             elif blc_vi == '<' and  self.mustupdate:
                 self.tabWidget.setEnabled(False)
                 self.updatlabel.setText("<html><head/><body><p><a href=\"{}\"><span style=\" text-decoration: underline; color:#ff0000;\">此版本有重大风险<br>不建议使用，必须升级</span></a></p></body></html>".format(s['url']))
@@ -243,7 +247,6 @@ class TabDialog(QDialog):           ##########主界面
         config.set('sheet_day','sjl',self.ts1.sjl.text())
         config.set('sheet_day','gzh',self.ts1.gzh.text())
         config.set('sheet_day','cj',str(self.ts1.jsComboBox.currentIndex()))
-        config.set('sheet_day','mode',str(self.ts1.js2ComboBox.currentIndex()))
         config.set('sheet_day','mode',str(self.ts1.js2ComboBox.currentIndex()))
         config.set('sheet_day','filename',str(self.ts1.qtfile.text()))
         with open("config.ini","w") as fh:
