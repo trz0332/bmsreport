@@ -2,6 +2,7 @@ from PyQt5.QtCore import QDateTime,QDate,QTime  ,QThread,pyqtSignal,QFileInfo,Qt
 from PyQt5.QtWidgets import (QWidget,QVBoxLayout,QGridLayout,QLabel,QLineEdit
     ,QPushButton,QComboBox,QDateTimeEdit,QProgressBar,QMessageBox,QFileDialog,QMainWindow,  QApplication)
 import time
+from os import path
 from wt_ri import WorkThread
 
 class ri(QWidget):    #日报table框组建
@@ -102,20 +103,22 @@ class ri(QWidget):    #日报table框组建
             QMessageBox.information(self, "提示", "报表导出成功1",QMessageBox.Yes)
 
     def work(self):
-
         self.t1=time.mktime(time.strptime(self.dt1.date().toString(Qt.ISODate),"%Y-%m-%d"))
         self.t2=time.mktime(time.strptime(self.dt2.date().toString(Qt.ISODate),"%Y-%m-%d"))+60*60*24
-        gzh=self.gzh.text()
-        sjl=self.sjl.text()
-        cj=self.jsComboBox.currentText()
-        self.fileName1=self.qtfile.text()
-        mode=int(self.js2ComboBox.currentText().split('--')[0])
-        if self.qtfile.text()=='':QMessageBox.information(self, "提示", "没有导入日报文件",QMessageBox.No)
+        if time.mktime(time.strptime(self.dt1.date().toString(Qt.ISODate),"%Y-%m-%d"))>time.mktime(time.strptime(self.dt2.date().toString(Qt.ISODate),"%Y-%m-%d")):
+            QMessageBox.information(self, "信息", "起始时间不能大于结束时间",QMessageBox.Yes)
         else:
-            self.qtb1.setEnabled(False)
-            self.workThread.init2(self.fileName1,self.t1,self.t2,gzh,sjl,cj,mode)
-            self.workThread.start()              #计时开始  
-            #self.workThread.trigger.connect(over)   #当获得循环完毕的信号时，停止计数 
+            gzh=self.gzh.text()
+            sjl=self.sjl.text()
+            cj=self.jsComboBox.currentText()
+            self.fileName1=self.qtfile.text()
+            mode=int(self.js2ComboBox.currentText().split('--')[0])
+            if not path.exists(self.fileName1):QMessageBox.information(self, "提示", "检查配置，找不到模板文件",QMessageBox.No)
+            else:
+                self.qtb1.setEnabled(False)
+                self.workThread.init2(self.fileName1,self.t1,self.t2,gzh,sjl,cj,mode)
+                self.workThread.start()              #计时开始  
+                #self.workThread.trigger.connect(over)   #当获得循环完毕的信号时，停止计数 
     
     def button_click(self): 
         # absolute_path is a QString object  

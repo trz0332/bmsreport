@@ -1,6 +1,9 @@
 from PyQt5.QtCore import QDateTime,QDate,QTime  ,QThread,pyqtSignal,QFileInfo,Qt
 from PyQt5.QtWidgets import (QWidget,QVBoxLayout,QGridLayout,QLabel,QLineEdit
-    ,QPushButton,QComboBox,QDateTimeEdit,QDateEdit,QProgressBar,QMessageBox)
+    ,QPushButton,QComboBox,QDateTimeEdit,QProgressBar,QMessageBox,QFileDialog,QMainWindow,  QApplication)
+import time
+from os import path
+from wt_yue import WorkThread
 
 class yue(QWidget):
     def __init__(self,config, parent=None):
@@ -12,7 +15,7 @@ class yue(QWidget):
         self.qtfile=QLineEdit('',self)
         self.qtfile.insert(config['sheet_day']['filename'] if 'filename' in  config['sheet_day'].keys() else '')
         self.qbfile=QPushButton('选择文件',self)
-        #self.qbfile.clicked.connect(self.button_click)
+        self.qbfile.clicked.connect(self.button_click)
         self.qbfile.setEnabled(True)
         layout.addWidget(self.qtfile,0,1,1,6)
         layout.addWidget(self.qbfile,0,7)
@@ -42,26 +45,48 @@ class yue(QWidget):
         layout.addWidget(self.jsComboBox,1,5)
         layout.addWidget(self.js2ComboBox,1,7)
         ######################第三行时间选择行#############################
-        layout.addWidget(QLabel('起始时间',self),2,0)
-        self.dt1 = QDateEdit(QDate.currentDate(),self) # 创建日期，并初始值  
-        self.dt1.setDisplayFormat('yyyy-MM-dd')
-        #self.dt1.setMinimumDate(QDate.currentDate().addDays(-90)) # 限定时间最小值，当前时间-365天  
-        self.dt1.setMaximumDate(QDate.currentDate().addDays(1)) # 限定时间最大值，当前时间+365天  
-        self.dt1.setCalendarPopup(True) # 允许弹出窗口选择日期，setMinimumDate()的限定对这个窗口也有效  
-        # #############结束时间选择 
-        layout.addWidget(QLabel('结束时间',self),2,4)
-        self.dt2 = QDateEdit(QDate.currentDate(),self) # 创建日期，并初始值  
-        self.dt2.setDate(QDate.currentDate())  
-        #self.dt2.setMinimumDate(QDate.currentDate().addDays(-90)) # 限定时间最小值，当前时间-365天  
-        self.dt2.setMaximumDate(QDate.currentDate().addDays(1)) # 限定时间最大值，当前时间+365天  
-        self.dt2.setCalendarPopup(True) # 允许弹出窗口选择日期，setMinimumDate()的限定对这个窗口也有效  
-
+        layout.addWidget(QLabel('起始时间',self),2,0) 
+        nowyear=time.strftime('%Y',time.localtime(time.time()))
+        nowyue=time.strftime('%m',time.localtime(time.time()))
+        yearlist=[]
+        for i in range(5):
+            yearlist.append(str(int(nowyear)-i))
+        self.st_nianComboBox=QComboBox(self)   #下拉菜单
+        for i in yearlist:
+            self.st_nianComboBox.addItem(i+'年')
+        yuelist=range(1,13)
+        self.st_yueComboBox=QComboBox(self)   #下拉菜单
+        for i in yuelist:
+            self.st_yueComboBox.addItem(str(i)+'月')
+        #self.yueComboBox.setCurrentIndex(int(config['sheet_day']['mode']))
+        self.st_nianComboBox.setCurrentIndex(yearlist.index(nowyear))
+        self.st_yueComboBox.setCurrentIndex(yuelist.index(int(nowyue)))
+        #self.js2ComboBox.setCurrentIndex(int(config['sheet_day']['mode']))
+        # #############结束时间选择
+        #  
+        layout.addWidget(QLabel('结束时间',self),2,4) 
+        self.en_nianComboBox=QComboBox(self)   #下拉菜单
+        for i in yearlist:
+            self.en_nianComboBox.addItem(i+'年')
+        self.en_yueComboBox=QComboBox(self)   #下拉菜单
+        for i in yuelist:
+            self.en_yueComboBox.addItem(str(i)+'月')
+        #self.yueComboBox.setCurrentIndex(int(config['sheet_day']['mode']))
+        self.en_nianComboBox.setCurrentIndex(yearlist.index(nowyear))
+        self.en_yueComboBox.setCurrentIndex(yuelist.index(int(nowyue)))
         ###########查询按钮###########
         self.qtb1=QPushButton('查询',self)
-        #self.qtb1.clicked.connect(self.work)
+        self.qtb1.clicked.connect(self.work)
         
-        layout.addWidget(self.dt1,2,1,1,3)
-        layout.addWidget(self.dt2,2,5,1,2)
+        layout.addWidget(self.st_nianComboBox,2,1)
+        layout.addWidget(self.st_yueComboBox,2,2)
+        layout.addWidget(self.en_nianComboBox,2,5)
+        layout.addWidget(self.en_yueComboBox,2,6)
+
+
+
+
+
         layout.addWidget(self.qtb1,2,7)
 
         #######第四行进度条
@@ -70,3 +95,30 @@ class yue(QWidget):
         #self.pbar.setFixedWidth(560)
         layout.addWidget(self.pbar,3,1,1,6 )
         self.setLayout(layout)
+    def button_click(self): 
+        # absolute_path is a QString object  
+        self.fileName1, self.filetype = QFileDialog.getOpenFileName(self,
+                                            "选取文件",  
+                                            "",  
+                                            "xlsx (*.xlsx)")   #设置文件扩展名过滤,注意用双分号间隔  
+        if self.fileName1=='':pass
+        else :
+            self.qtfile.clear()
+            self.qtfile.insert(self.fileName1)
+    def pdsj(self,st_y,st_m,en_y,en_m):
+        if st_y>en_y:return False
+        else:
+            if st_m>en_m:return False
+            else:return True
+    def work(self):
+        stnian=int(self.st_nianComboBox.currentText()[:-1])
+        styue=int(self.st_yueComboBox.currentText()[:-1])
+        ennian=int(self.en_nianComboBox.currentText()[:-1])
+        enyue=int(self.en_yueComboBox.currentText()[:-1])
+        if not self.pdsj(stnian,styue,ennian,enyue):
+            QMessageBox.information(self, "信息", "起始时间不能大于结束时间",QMessageBox.Yes)
+        else:
+            if not path.exists(self.fileName1):QMessageBox.information(self, "提示", "检查配置，找不到模板文件",QMessageBox.No)
+            else:
+                self.t1=time.mktime(time.strptime('{}-{}'.format(stnian,styue),"%Y-%m"))
+                self.t2=time.mktime(time.strptime('{}-{}'.format(ennian,enyue),"%Y-%m"))
