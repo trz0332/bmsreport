@@ -16,7 +16,7 @@ from g_data import bl
 import decimal
 from ri import ri
 from zhou import zhou
-from yue import yue
+from yue import yue 
 #####################################
 from ctypes import windll
 windll.shell32.SetCurrentProcessExplicitAppUserModelID("报表程序")
@@ -52,7 +52,7 @@ class TabDialog(QDialog):           ##########主界面
         super(TabDialog, self).__init__(parent)
         self.mustupdate=False
         self.setWindowOpacity(0.9)  #设置透明
-        self.creatico()
+        self.creatico()  #创建图标
         self.creatui()
         self.creattab()
         self.checkvision()   #运行检查升级函数QMainWindow

@@ -39,7 +39,7 @@ class WorkThread(QThread):
     sinOut = pyqtSignal(int)
     def __int__(self):  
         super(WorkThread,self).__init__()
-    def init2(self,filename,stdate,enddate,gzh,sjl,cj,mode):
+    def init2(self,filename,stdate,enddate,gzh,sjl,cj,mode,sheetnames):
         self.filename=filename
         self.stdate=stdate
         self.enddate=enddate
@@ -47,6 +47,8 @@ class WorkThread(QThread):
         self.sjl=sjl
         self.cj=cj
         self.mode=mode
+        self.sheetnames=sheetnames
+        #print(self.sheetnames)
     def init1(self,host,port,user,pwd,db):
         self.host=host
         self.port=port
@@ -106,7 +108,7 @@ class WorkThread(QThread):
             wb=load_workbook(self.filename)
             xdate=0
             xled=0
-            for i in wb.sheetnames:   #计算总共需要处理多少个单元格
+            for i in self.sheetnames:   #计算总共需要处理多少个单元格
                 xdate+=len(wb[i][self.sjl+self.gzh:get_column_letter(wb[i].max_column)+self.gzh][0][1:])
             xdate=xdate*(self.enddate-self.stdate)/(60*60*24)   #计算总共需要处理多少个单元格  乘以需要处理的天数
             #print(xdate)
@@ -116,7 +118,8 @@ class WorkThread(QThread):
                     row_x=self.finddate(wb[i],self.sjl, time.localtime(self.stdate+(60*60*24*(date1))))
                 elif self.mode==1:
                     row_x=row_x+1
-                for index,i in enumerate(wb.sheetnames):   #依次处理的表格
+                for index,i in enumerate(self.sheetnames):   #依次处理的表格
+                    #print(i)
                     if row_x:  #查找日期在不在
                         if self.mode==1:
                             dddddd=time.localtime(self.stdate+(60*60*24*(date1)))
@@ -146,7 +149,7 @@ class WorkThread(QThread):
                                     template='locals()[\'value\']= '+exc  #执行模板聚he
                                     exec(template)  #执行模板聚
                                     wb[i][x.column+str(row_x)].value=locals()['value']   #得到结果填充到表格中去
-                            except: pass
+                            except  Exception as e: print(e)
                             self.sinOut.emit(((xled)/xdate)*100)  #输出信号
                             xled+=1
                             #print(((xled)/xdate)*100)
