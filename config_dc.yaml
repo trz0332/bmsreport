@@ -1,0 +1,17 @@
+color: '#3F60E2'
+server:
+  db: MJ3.0
+  host: 127.0.0.1
+  passwd: SA
+  port: '3306'
+  user: SA
+sheet_day:
+  cj: 3
+  filename: C:/Users/MOGU/Desktop/写的小工具/byq.xlsx
+  gzh: '3'
+  mode: 1
+  save_mode: false
+  sjl: A
+  sn_check: {}
+ui:
+  color: '#FFFF00'

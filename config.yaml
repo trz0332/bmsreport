@@ -1,0 +1,25 @@
+color: '#3F60E2'
+server:
+  db: MJ3.0
+  host: 47.119.123.181
+  passwd: SA
+  port: '13512'
+  user: SA
+sheet_day:
+  cj: 5
+  filename: D:/天津1号日报/天津一号数据中心PUE拆分报表.xlsx
+  gzh: C
+  mode: 0
+  save_mode: true
+  sjl: '2'
+  sn_check:
+    IT用电量: true
+    PUE: true
+    PUE取点设备: false
+    PUE当日数据分项: false
+    UPS关机时间记录: false
+    原始数据: false
+    损耗: true
+    错误数据分析栏: false
+ui:
+  color: '#FFFFFF'

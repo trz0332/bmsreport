@@ -1,0 +1,1 @@
+C:\Progra~1\Python37\Scripts\pyrcc5.exe ico.qrc -o  img.py
