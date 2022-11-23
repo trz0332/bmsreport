@@ -1,1 +1,1 @@
-pyinstaller -w  -D --add-data=".\ziyuan;."    -i d:\\ico\\save.ico --clean ui.py
+pyinstaller main.spec

@@ -1,0 +1,64 @@
+his:
+  1.0: 基本报表查询功能
+  1.2: 解决bug:表格中日期处理的错误 \n 新增功能:检查最新版本功能
+  1.2.1: 添加了一个按钮，链接到github主页,github上面有excel文件，里面有一个比较完整的配置\n
+  1.4.14: "修正软件bug：某些特殊情况下会更改文件夹的图标 \n时间戳修改为人可以看得懂的格式\n"
+  1.4.15: 增加功能：备份导入历史数据
+  1.4.16: 修正BUG：SNMP采集多测点的时候速度非常慢
+  1.4.17: 增加功能：填入设备数量可以生成对应的公共方舱的线上厂验表格
+  1.4.18: 修正BUG：完善了公共方舱oid模板表内的设备模板
+  1.4.19: "修正BUG：修正交换机模板中的一个错误，导致无法上传成功\n 增加功能： 可以导入数量配置文件，配置文件模板在  /程序目录/mg/数量模板1.xlsx"
+  1.4.20: "修正BUG：修正错误，模板第一行需要是一个表头\n 修正BUG：数量填写0的时候导出表格错误\n修正BUG: 模板中J列复制数据错误"
+  1.4.20.1: 修改公共方仓模板表格将其中一处多余2行删掉
+  1.4.21: '修正bug，发送snmp控制命令失败
+
+    进一步优化采集速度2240测点可以在1.3秒左右采集完成'
+  1.4.22: 增加一个文件编辑模式，可以修改readme和txt文件，进入该模式需要密码，密码请联系谭工
+  1.4.23: '修复bug: 当在测试实列里面添加删除行之后，会导致显示历史快照出错而程序闪退，数据快照排序错误等BUG'
+  1.4.24: 新增功能：在线更新测试用例。关于---更新测试用例
+  1.4.25: 新增功能：优化高分辨屏幕显示
+  1.4.26: 优化控制逻辑： 发送控制命令之前会获取数据类型，根据数据类型发送什么样类型的控制命令
+  1.4.27: '优化显示界面：可以设置字体大小，在--关于--字体大小
+
+    增加问题选项中的解决问题方式'
+  1.4.28: 优化配置：优化了跟云服务器相关的url
+  1.3.11: '解决bug: log函数中error函数引用错误导致程序异常退出\n\解决bug: 调用检查日期的函数会导致提前返回空值而找不到正确的日期\n\'
+  1.4.29: 优化配置：优化了跟云服务器相关的url
+  1.4.30: 增加功能：增加对栅格使用cilckhouse数据库的支持
+  1.4.31: 修复进度条不显示的bug
+info: 修复进度条不显示的bug
+md5:
+  __init__.pyc: fd2818d5f893735711c3c5a4a3fb384a
+  bmssnmp.pyc: 88095e2b0ddeaa94b3fdb34f3f1e675b
+  clickhouse.pyc: 6c8750d886e8490dac6bd5568470fcdf
+  config.yaml: eee59e1c60555b5131d2bceb84daa2c7
+  encryption.pyc: 7973f8f84239aeb8a90b77e51670d893
+  finddevid.pyc: 926791dea75b31feb302fb55f0e88982
+  g_data.pyc: dc50eb403a5dfbf0e8063b1715d11212
+  img.bal.pyc: c4a0ee4e0cddc6b949611ac1b137163d
+  img.pyc: fe2367067d56b8022548411b233584aa
+  js2.pyc: e3262c558af2464ba347499bfe00c6e1
+  ke_1.pyc: 6fd1d2b2f7dcacb4b12e8245ca702144
+  mongodb.pyc: 64dabdb9708112f83bff5e2e6ae5934d
+  mssql.pyc: 39a2f1846144b84bd742c7e60dd9c0dd
+  mysql.pyc: 3404437d7f763c05bca81e14d741bbed
+  ri.pyc: b93fee552f6967677f85d088515a33a9
+  serverconfig.yaml: 73a2b525c17d18be9e750e015c6fdebf
+  sg_1.pyc: 612fbcc2fba22111567b8b6d672fa303
+  sg_2.pyc: 7a456382e2e86ba1f68c5f475d41eb11
+  ssdb.pyc: 74cdd786ec6b92f76fa388c239a440f7
+  ts.pyc: c37a8bb70988819ccf5da8e674a364a5
+  ui.pyc: f731170cd32ac5c119164c087a51aa30
+  uilog.pyc: 207de97b2c816ccc0f988ba0cc5cad83
+  update.pyc: d4b962516af34943a1cc395abb883712
+  version.yaml: 14334288dfe7d2777384dcc138e154ee
+  wt_ri.pyc: f94b90e05182b4765111c8fe68557cae
+  wt_yue.pyc: 41240e8e13d3b3c02e1c885dac0a098f
+  xb_1.pyc: 758823f2fae517cff3d62556c2c21b7c
+  yue.pyc: 59599de406a710faba248a6050ec7a56
+  yue_bak.pyc: 57d9f4209d337e40803708da5a1c6d86
+  zhou.pyc: f78f3816fd57abe71ab1fd4c9674d6f7
+  zjyaml.pyc: ca10ac4dcbd2f846582eab2569a44e79
+  zl_1.pyc: 0a645c776cbc876b47326761f5e5aee1
+  zl_2.pyc: 983c04048f9a81761aa80fa737ae70ff
+ver: 1.4.31

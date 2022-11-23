@@ -1,0 +1,10 @@
+<RCC>
+  <qresource>
+    <file>img/icon_github.png</file>
+    <file>img/icon_aboat.png</file>
+    <file>img/icon_help.png</file>
+    <file>img/icon_open.png</file>
+    <file>img/icon_save.png</file>
+    <file>img/icon_mogu.png</file>
+  </qresource>
+</RCC>
